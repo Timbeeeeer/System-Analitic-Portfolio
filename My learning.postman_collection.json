@@ -1,0 +1,239 @@
+{
+  "info": {
+    "_postman_id": "64f8ac09-5485-4125-a21c-aa44d65e4d44",
+    "name": "My learning",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "56217403",
+    "_collection_link": "https://go.postman.co/collection/56217403-64f8ac09-5485-4125-a21c-aa44d65e4d44?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Get - запросы",
+      "item": [
+        {
+          "name": "https://petstore.swagger.io/v2/pet/:id",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://petstore.swagger.io/v2/pet/:id",
+              "protocol": "https",
+              "host": [
+                "petstore",
+                "swagger",
+                "io"
+              ],
+              "path": [
+                "v2",
+                "pet",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "5"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "https://petstore.swagger.io/v2/pet/findByStatus?status=available",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://petstore.swagger.io/v2/pet/findByStatus?status=available",
+              "protocol": "https",
+              "host": [
+                "petstore",
+                "swagger",
+                "io"
+              ],
+              "path": [
+                "v2",
+                "pet",
+                "findByStatus"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "available"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Post - запросы",
+      "item": [
+        {
+          "name": "https://petstore.swagger.io/v2/pet",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id\" : 48,\r\n    \"category\" : {\r\n        \"id\" :2,\r\n        \"name\" : \"cat\"\r\n    },\r\n    \"name\" : \"Муся\",\r\n    \"status\" : \"available\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://petstore.swagger.io/v2/pet",
+              "protocol": "https",
+              "host": [
+                "petstore",
+                "swagger",
+                "io"
+              ],
+              "path": [
+                "v2",
+                "pet"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "https://petstore.swagger.io/v2/pet/:id/uploadImage",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "additionalMetadata",
+                  "type": "text",
+                  "uuid": "f6b1d8aa-ab06-4356-86a4-3765898d3586",
+                  "value": "cat photo"
+                },
+                {
+                  "key": "file",
+                  "type": "file",
+                  "uuid": "0b47f5c6-c885-4ca3-b2d7-2a3ee2aa4915",
+                  "src": "/C:/Users/lakty/Downloads/catphoto.jpg"
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://petstore.swagger.io/v2/pet/:id/uploadImage",
+              "protocol": "https",
+              "host": [
+                "petstore",
+                "swagger",
+                "io"
+              ],
+              "path": [
+                "v2",
+                "pet",
+                ":id",
+                "uploadImage"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "48"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Put -  запросы",
+      "item": [
+        {
+          "name": "https://petstore.swagger.io/v2/pet",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id\" : 48,\r\n    \"name\" : \"Муся&Доча\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://petstore.swagger.io/v2/pet",
+              "protocol": "https",
+              "host": [
+                "petstore",
+                "swagger",
+                "io"
+              ],
+              "path": [
+                "v2",
+                "pet"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Delete - запросы",
+      "item": [
+        {
+          "name": "https://petstore.swagger.io/v2/pet/:id",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://petstore.swagger.io/v2/pet/:id",
+              "protocol": "https",
+              "host": [
+                "petstore",
+                "swagger",
+                "io"
+              ],
+              "path": [
+                "v2",
+                "pet",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "48"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
