@@ -1,0 +1,38 @@
+{
+  "info": {
+    "_postman_id": "1b0b4c41-50f8-4322-a2d9-20889c327f9d",
+    "name": "Task",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "56217403",
+    "_collection_link": "https://go.postman.co/collection/56217403-1b0b4c41-50f8-4322-a2d9-20889c327f9d?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Register",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"user\": {\r\n        \"first_name\": \"name\",\r\n        \"last_name\" : \"last_name\",\r\n        \"email\" : \"email@example.com\",\r\n        \"password\" : \"password\"\r\n            }\r\n    \r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "/api/v1/auth/register",
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "register"
+          ]
+        },
+        "description": "# Спецификация REST API: Регистрация нового пользователя\n\nДокумент описывает контракт интеграции между фронтендом и бэкендом для обработки регистрации пользователя (кнопка \"Register\").\n\n## 1\\. Общие сведения о методе\n\n- **HTTP Метод:** POST\n    \n- **URL:** `/api/v1/auth/register`\n    \n- **Формат данных (Content-Type):** `application/json`\n    \n\n---\n\n## 2\\. Контракт запроса (Request)\n\nВ теле запроса передается JSON-объект `user` со следующими параметрами:\n\n| Наименование | Тип данных | Обязательность | Ограничения | Описание |\n| --- | --- | --- | --- | --- |\n| **user** | object | Да (Required) | Корневой объект | Контейнер с данными пользователя |\n| **user.first_name** | string | Да (Required) | Макс. 50 символов | Имя пользователя |\n| **user.last_name** | string | Да (Required) | Макс. 50 символов | Фамилия пользователя |\n| **user.email** | string | Да (Required) | Валидный Email | Уникальный адрес (логин для входа) |\n| **user.password** | string | Да (Required) | Мин. 8 символов | Пароль (не менее 1 заглавной буквы и 1 цифры) |\n\n### 📥 Пример запроса (Body JSON)\n\n``` json\n{\n  \"user\": {\n    \"first_name\": \"Иван\",\n    \"last_name\": \"Иванов\",\n    \"email\": \"user@example.com\",\n    \"password\": \"SecurePassword1\"\n  }\n}\n\n ```\n\n---\n\n## 3\\. Контракт ответов и коды ошибок (Responses)\n\n### Сценарий 1: Успешная регистрация (Код 201 Created)\n\nСервер успешно создал запись в БД.\n\n| Наименование | Тип данных | Обязательность | Описание |\n| --- | --- | --- | --- |\n| **id** | integer | Да (Required) | Уникальный ID пользователя, сгенерированный БД |\n| **email** | string | Да (Required) | Электронная почта зарегистрированного аккаунта |\n| **status** | string | Да (Required) | Дефолтный статус аккаунта в системе (`\"active\"`) |\n\n#### 📤 Пример успешного ответа:\n\n``` json\n{\n  \"id\": 105,\n  \"email\": \"user@example.com\",\n  \"status\": \"active\"\n}\n\n ```\n\n### Сценарий 2: Ошибка валидации данных (Код 400 Bad Request — Клиентская ошибка)\n\nФронтенд передал некорректные данные (например, слишком короткий пароль или неверный формат email).\n\n| Наименование | Тип данных | Обязательность | Описание |\n| --- | --- | --- | --- |\n| **error_code** | string | Да | Технический маркер ошибки (`\"VALIDATION_ERROR\"`) |\n| **message** | string | Да | Понятный текст ошибки для вывода на фронтенде |\n\n#### 📤 Пример ответа с ошибкой 400:\n\n``` json\n{\n  \"error_code\": \"VALIDATION_ERROR\",\n  \"message\": \"Пароль должен содержать не менее 8 символов, одну заглавную букву и одну цифру.\"\n}\n\n ```\n\n### Сценарий 3: Пользователь уже существует (Код 409 Conflict — Клиентская ошибка)\n\nПопытка зарегистрироваться на email, который уже занят в базе данных.\n\n#### 📤 Пример ответа с ошибкой 409:\n\n``` json\n{\n  \"error_code\": \"EMAIL_ALREADY_EXISTS\",\n  \"message\": \"Пользователь с таким email уже зарегистрирован в системе.\"\n}\n\n ```\n\n---\n\n## 4\\. Спецификация в формате OpenAPI 3.0 (Swagger/YAML)\n\n``` yaml\nopenapi: 3.0.3\ninfo:\n  title: Marketplace Auth API\n  version: 1.0.0\n  description: API контракт для регистрации пользователей маркетплейса.\npaths:\n  /api/v1/auth/register:\n    post:\n      summary: Регистрация нового пользователя\n      operationId: registerUser\n      requestBody:\n        required: true\n        content:\n          application/json:\n            schema:\n              type: object\n              required:\n                - user\n              properties:\n                user:\n                  type: object\n                  required:\n                    - first_name\n                    - last_name\n                    - email\n                    - password\n                  properties:\n                    first_name:\n                      type: string\n                      example: \"Иван\"\n                    last_name:\n                      type: string\n                      example: \"Иванов\"\n                    email:\n                      type: string\n                      format: email\n                      example: \"user@example.com\"\n                    password:\n                      type: string\n                      format: password\n                      minLength: 8\n                      example: \"SecurePassword1\"\n      responses:\n        '201':\n          description: Пользователь успешно зарегистрирован\n          content:\n            application/json:\n              schema:\n                type: object\n                properties:\n                  id:\n                    type: integer\n                    example: 105\n                  email:\n                    type: string\n                    example: \"user@example.com\"\n                  status:\n                    type: string\n                    example: \"active\"\n        '400':\n          description: Ошибка валидации входных данных (клиентская ошибка)\n          content:\n            application/json:\n              schema:\n                type: object\n                properties:\n                  error_code:\n                    type: string\n                    example: \"VALIDATION_ERROR\"\n                  message:\n                    type: string\n                    example: \"Пароль слишком короткий\"\n        '409':\n          description: Конфликт — email уже занят в базе данных (клиентская ошибка)\n          content:\n            application/json:\n              schema:\n                type: object\n                properties:\n                  error_code:\n                    type: string\n                    example: \"EMAIL_ALREADY_EXISTS\"\n                  message:\n                    type: string\n                    example: \"Пользователь с таким email уже зарегистрирован\"\n\n ```"
+      },
+      "response": []
+    }
+  ]
+}
